@@ -51,7 +51,7 @@ Custom item settings can be changed in `plugins/Slimefun/Items.yml`
 
 **Wrench**: Quickly breaks Slimefun cargo and energy components.
 
-**Paxel**: A pickaxe, axe, and shovel all in one.
+**Paxel**: A pickaxe, axe, and shovel all in one. (Updated with 1.21 blocks)
 
 ## Misc
 **Ender Chest Extraction Node**: Moves items from ender chest to a chest
@@ -65,6 +65,8 @@ Custom item settings can be changed in `plugins/Slimefun/Items.yml`
 **Barrels**: Storage containers that store one type of item each
 
 **Warp Pad & Warp Pad Configurator**: Short distance teleportation pads
+
+**Upgraded Warp Configurator**: Allows Warp Pads to be used for any distance
 
 **Alternate Elevator Plate**: Functions the same as Slimefun's Elevator Plates, but it uses a Chest GUI. Can be used for cosmetic effect, of if your server does not support elevators when a player is muted, this will work.
 
