@@ -61,7 +61,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
         if (BlockStorage.hasBlockInfo(b) && BlockStorage.check(b) == FluffyItems.WARP_PAD.getItem()
             && Slimefun.getProtectionManager().hasPermission(p, b.getLocation(), Interaction.PLACE_BLOCK)) {
-            if (SlimefunUtils.isItemSimilar(p.getInventory().getItemInMainHand(), FluffyItems.WARP_PAD_CONFIGURATOR, false)) {
+            if (SlimefunUtils.isItemSimilar(p.getInventory().getItemInMainHand(), FluffyItems.WARP_PAD_CONFIGURATOR, false) || SlimefunUtils.isItemSimilar(p.getInventory().getItemInMainHand(), FluffyItems.UPGRADED_WARP_PAD_CONFIGURATOR, false)) {
 
                 ItemStack item = p.getInventory().getItemInMainHand();
                 ItemMeta meta = item.getItemMeta();
@@ -77,63 +77,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                         pdc.set(xCoord, PersistentDataType.INTEGER, b.getX());
                         pdc.set(yCoord, PersistentDataType.INTEGER, b.getY());
                         pdc.set(zCoord, PersistentDataType.INTEGER, b.getZ());
-                        lore.set(LORE_COORDINATE_INDEX, ChatColor.translateAlternateColorCodes(
-                            '&', "&eLinked Coordinates: &7" + b.getX() + ", " + b.getY() + ", " + b.getZ()));
-
-                        meta.setLore(lore);
-                        item.setItemMeta(meta);
-
-                        updateHologram(b, "&a&lDestination");
-                        BlockStorage.addBlockInfo(b, "type", "destination");
-                        Utils.send(p, "&3This pad has been marked as a &aDestination &3and bound to your configurator");
-
-                    // Origin
-                    } else if (pdc.has(world, PersistentDataType.STRING) && b.getWorld().getName().equals(pdc.get(world, PersistentDataType.STRING))) {
-                        String worldName = pdc.get(world, PersistentDataType.STRING);
-                        int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
-                        int y = pdc.getOrDefault(yCoord, PersistentDataType.INTEGER, 0);
-                        int z = pdc.getOrDefault(zCoord, PersistentDataType.INTEGER, 0);
-
-                        if (Math.abs(x - b.getX()) > MAX_DISTANCE.getValue()
-                            || Math.abs(z - b.getZ()) > MAX_DISTANCE.getValue()) {
-
-                            Utils.send(p, "&cYou can not link blocks more than "
-                                + MAX_DISTANCE.getValue() + " blocks apart!");
-
-                            return;
-                        }
-
-                        registerOrigin(b, worldName, x, y, z);
-
-                        Utils.send(p, "&3This pad has been marked as an &aOrigin &3and your configurator's settings " +
-                            "have been pasted onto this pad");
-
-                    } else {
-
-                        Utils.send(p, "&cSneak and right click on a Warp Pad to set the destination, then right click" +
-                            " " + "another Warp Pad tp set the origin!");
-                    }
-
-                }
-
-            } else if (SlimefunUtils.isItemSimilar(p.getInventory().getItemInMainHand(), FluffyItems.UPGRADED_WARP_PAD_CONFIGURATOR, false)) {
-
-                ItemStack item = p.getInventory().getItemInMainHand();
-                ItemMeta meta = item.getItemMeta();
-                List<String> lore = meta.getLore();
-                PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-
-                    // Destination
-                    if (p.isSneaking()) {
-                        pdc.set(world, PersistentDataType.STRING, b.getWorld().getName());
-
-                        pdc.set(xCoord, PersistentDataType.INTEGER, b.getX());
-                        pdc.set(yCoord, PersistentDataType.INTEGER, b.getY());
-                        pdc.set(zCoord, PersistentDataType.INTEGER, b.getZ());
-                        lore.set(LORE_COORDINATE_INDEX, ChatColor.translateAlternateColorCodes(
-                            '&', "&eLinked Coordinates: &7" + b.getX() + ", " + b.getY() + ", " + b.getZ()));
+                        lore.set(LORE_COORDINATE_INDEX, ChatColor.translateAlternateColorCodes('&', "&eLinked Coordinates: &7" + b.getX() + ", " + b.getY() + ", " + b.getZ()));
 
                         meta.setLore(lore);
                         item.setItemMeta(meta);
@@ -144,6 +88,18 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
                     // Origin
                     } else if (pdc.has(world, PersistentDataType.STRING)) {
+                        if (SlimefunUtils.isItemSimilar(p.getInventory().getItemInMainHand(), FluffyItems.WARP_PAD_CONFIGURATOR, false)) {
+                            if (!b.getWorld().getName().equals(pdc.get(world, PersistentDataType.STRING))) {
+                                Utils.send(p, "&cYou can only link warp pads to other warp pads in the same world!");
+                                return;
+                            }
+
+                            if (Math.abs(x - b.getX()) > MAX_DISTANCE.getValue() || Math.abs(z - b.getZ()) > MAX_DISTANCE.getValue()) {
+                                Utils.send(p, "&cYou can not link blocks more than " + MAX_DISTANCE.getValue() + " blocks apart!");
+                                return;
+                            }
+                        }
+
                         String worldName = pdc.get(world, PersistentDataType.STRING);
                         int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
                         int y = pdc.getOrDefault(yCoord, PersistentDataType.INTEGER, 0);
@@ -151,13 +107,9 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
                         registerOrigin(b, worldName, x, y, z);
 
-                        Utils.send(p, "&3This pad has been marked as an &aOrigin &3and your configurator's settings " +
-                            "have been pasted onto this pad");
-
+                        Utils.send(p, "&3This pad has been marked as an &aOrigin &3and your configurator's settings " + "have been pasted onto this pad");
                     } else {
-
-                        Utils.send(p, "&cSneak and right click on a Warp Pad to set the destination, then right click" +
-                            " " + "another Warp Pad tp set the origin!");
+                        Utils.send(p, "&cSneak and right click on a Warp Pad to set the destination, then right click" + " " + "another Warp Pad tp set the origin!");
                     }
 
                 }
@@ -172,6 +124,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
         BlockStorage.addBlockInfo(b, "type", "origin");
 
         BlockStorage.addBlockInfo(b, "world", world);
+
         BlockStorage.addBlockInfo(b, "x", String.valueOf(x));
         BlockStorage.addBlockInfo(b, "y", String.valueOf(y));
         BlockStorage.addBlockInfo(b, "z", String.valueOf(z));

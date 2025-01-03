@@ -126,26 +126,33 @@ public class Events implements Listener {
             Player p = e.getPlayer();
             Block b = p.getLocation().subtract(0, 1, 0).getBlock();
 
-            if (BlockStorage.hasBlockInfo(b) && BlockStorage.check(b) == FluffyItems.WARP_PAD.getItem()
-                    && BlockStorage.getLocationInfo(b.getLocation(), "type").equals("origin")) {
+            if (BlockStorage.hasBlockInfo(b) && BlockStorage.check(b) == FluffyItems.WARP_PAD.getItem() ∂&& BlockStorage.getLocationInfo(b.getLocation(), "type").equals("origin")) {
 
                 Location l = b.getLocation();
 
                 String worldName = BlockStorage.getLocationInfo(l, "world");
-                World world = Bukkit.getWorld(worldName);
+                World world;
 
-                Location destination = new Location(world,
-                        Integer.parseInt(BlockStorage.getLocationInfo(l, "x")),
-                        Integer.parseInt(BlockStorage.getLocationInfo(l, "y")),
-                        Integer.parseInt(BlockStorage.getLocationInfo(l, "z")));
+                if (worldName != null) {
+                    world = Bukkit.getWorld(worldName);
+                    if (world == null) {
+                        Utils.send(p, "§cThe world '" + worldName + "' is not loaded or does not exist!");
+                        return;
+                    }
+                } else {
+                    world = b.getWorld();
+                    if (world == null) {
+                        Utils.send(p, "§cCould not determine the world!");
+                        return;
+                    }
+                }
+
+                Location destination = new Location(world, Integer.parseInt(BlockStorage.getLocationInfo(l, "x")), Integer.parseInt(BlockStorage.getLocationInfo(l, "y")), Integer.parseInt(BlockStorage.getLocationInfo(l, "z")));
 
                 float yaw = p.getLocation().getYaw();
                 float pitch = p.getLocation().getPitch();
 
-                if (BlockStorage.hasBlockInfo(destination) && BlockStorage.getLocationInfo(destination, "type") != null
-                        && BlockStorage.getLocationInfo(destination, "type").equals("destination")
-                        && destination.getBlock().getRelative(BlockFace.UP).getType() == Material.AIR
-                        && destination.getBlock().getRelative(BlockFace.UP, 2).getType() == Material.AIR) {
+                if (BlockStorage.hasBlockInfo(destination) && BlockStorage.getLocationInfo(destination, "type") != null && BlockStorage.getLocationInfo(destination, "type").equals("destination") && destination.getBlock().getRelative(BlockFace.UP).getType() == Material.AIR && destination.getBlock().getRelative(BlockFace.UP, 2).getType() == Material.AIR) {
 
                     destination.setPitch(pitch);
                     destination.setYaw(yaw);
