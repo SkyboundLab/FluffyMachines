@@ -128,7 +128,7 @@ public class Events implements Listener {
                     && BlockStorage.getLocationInfo(b.getLocation(), "type").equals("origin")) {
 
                 Location l = b.getLocation();
-                Location destination = new Location(b.getWorld(),
+                Location destination = new Location(BlockStorage.getLocationInfo(l, "world"),
                         Integer.parseInt(BlockStorage.getLocationInfo(l, "x")),
                         Integer.parseInt(BlockStorage.getLocationInfo(l, "y")),
                         Integer.parseInt(BlockStorage.getLocationInfo(l, "z")));
