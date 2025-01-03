@@ -88,6 +88,9 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
                     // Origin
                     } else if (pdc.has(world, PersistentDataType.STRING)) {
+                        int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
+                        int z = pdc.getOrDefault(zCoord, PersistentDataType.INTEGER, 0);
+
                         if (SlimefunUtils.isItemSimilar(p.getInventory().getItemInMainHand(), FluffyItems.WARP_PAD_CONFIGURATOR, false)) {
                             if (!b.getWorld().getName().equals(pdc.get(world, PersistentDataType.STRING))) {
                                 Utils.send(p, "&cYou can only link warp pads to other warp pads in the same world!");
@@ -101,9 +104,8 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                         }
 
                         String worldName = pdc.get(world, PersistentDataType.STRING);
-                        int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
+
                         int y = pdc.getOrDefault(yCoord, PersistentDataType.INTEGER, 0);
-                        int z = pdc.getOrDefault(zCoord, PersistentDataType.INTEGER, 0);
 
                         registerOrigin(b, worldName, x, y, z);
 
