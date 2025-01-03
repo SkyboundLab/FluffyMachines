@@ -8,6 +8,8 @@ import io.ncbpfluffybear.fluffymachines.items.tools.WateringCan;
 import io.ncbpfluffybear.fluffymachines.machines.AlternateElevatorPlate;
 import javax.annotation.Nonnull;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -33,7 +35,6 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.World;
 
 public class Events implements Listener {
 
