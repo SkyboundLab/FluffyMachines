@@ -143,8 +143,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                         Utils.send(p, "&3This pad has been marked as a &aDestination &3and bound to your configurator");
 
                     // Origin
-                    } else if (pdc.has(world, PersistentDataType.STRING) && b.getWorld().getName().equals(
-                        pdc.get(world, PersistentDataType.STRING))) {
+                    } else if (pdc.has(world, PersistentDataType.STRING)) {
                         int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
                         int y = pdc.getOrDefault(yCoord, PersistentDataType.INTEGER, 0);
                         int z = pdc.getOrDefault(zCoord, PersistentDataType.INTEGER, 0);
