@@ -1,4 +1,4 @@
-name: Custom Fork Build
+name: Build Development
 
 on:
   workflow_dispatch:
@@ -22,5 +22,5 @@ jobs:
       - name: Upload Build
         uses: actions/upload-artifact@v4
         with:
-          name: Custom Fork Build
+          name: plugin
           path: target
