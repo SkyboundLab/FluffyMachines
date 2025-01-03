@@ -88,8 +88,8 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                         Utils.send(p, "&3This pad has been marked as a &aDestination &3and bound to your configurator");
 
                     // Origin
-                    } else if (pdc.has(world, PersistentDataType.STRING) && b.getWorld().getName().equals(
-                        pdc.get(world, PersistentDataType.STRING))) {
+                    } else if (pdc.has(world, PersistentDataType.STRING) && b.getWorld().getName().equals(pdc.get(world, PersistentDataType.STRING))) {
+                        String world = pdc.get(world, PersistentDataType.STRING);
                         int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
                         int y = pdc.getOrDefault(yCoord, PersistentDataType.INTEGER, 0);
                         int z = pdc.getOrDefault(zCoord, PersistentDataType.INTEGER, 0);
@@ -103,7 +103,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                             return;
                         }
 
-                        registerOrigin(b, x, y, z);
+                        registerOrigin(b, world, x, y, z);
 
                         Utils.send(p, "&3This pad has been marked as an &aOrigin &3and your configurator's settings " +
                             "have been pasted onto this pad");
@@ -144,11 +144,12 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
                     // Origin
                     } else if (pdc.has(world, PersistentDataType.STRING)) {
+                        String world = pdc.get(world, PersistentDataType.STRING);
                         int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
                         int y = pdc.getOrDefault(yCoord, PersistentDataType.INTEGER, 0);
                         int z = pdc.getOrDefault(zCoord, PersistentDataType.INTEGER, 0);
 
-                        registerOrigin(b, x, y, z);
+                        registerOrigin(b, world, x, y, z);
 
                         Utils.send(p, "&3This pad has been marked as an &aOrigin &3and your configurator's settings " +
                             "have been pasted onto this pad");
@@ -167,9 +168,10 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
         }
     }
 
-    private void registerOrigin(Block b, int x, int y, int z) {
+    private void registerOrigin(Block b, String world, int x, int y, int z) {
         BlockStorage.addBlockInfo(b, "type", "origin");
 
+        BlockStorage.addBlockInfo(b, "world", world);
         BlockStorage.addBlockInfo(b, "x", String.valueOf(x));
         BlockStorage.addBlockInfo(b, "y", String.valueOf(y));
         BlockStorage.addBlockInfo(b, "z", String.valueOf(z));
