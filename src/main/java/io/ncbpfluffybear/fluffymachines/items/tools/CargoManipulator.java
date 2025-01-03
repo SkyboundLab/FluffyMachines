@@ -269,6 +269,6 @@ public class CargoManipulator extends SimpleSlimefunItem<ItemUseHandler> impleme
 
     private void createParticle(Block b, Color color) {
         Particle.DustOptions dustOption = new Particle.DustOptions(color, 1);
-        b.getLocation().getWorld().spawnParticle(Particle.REDSTONE, b.getLocation().add(0.5, 0.5, 0.5), 1, dustOption);
+        b.getLocation().getWorld().spawnParticle(Particle.DUST, b.getLocation().add(0.5, 0.5, 0.5), 1, dustOption);
     }
 }
