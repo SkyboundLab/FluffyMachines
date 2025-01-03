@@ -126,7 +126,7 @@ public class Events implements Listener {
             Player p = e.getPlayer();
             Block b = p.getLocation().subtract(0, 1, 0).getBlock();
 
-            if (BlockStorage.hasBlockInfo(b) && BlockStorage.check(b) == FluffyItems.WARP_PAD.getItem() ∂&& BlockStorage.getLocationInfo(b.getLocation(), "type").equals("origin")) {
+            if (BlockStorage.hasBlockInfo(b) && BlockStorage.check(b) == FluffyItems.WARP_PAD.getItem() && BlockStorage.getLocationInfo(b.getLocation(), "type").equals("origin")) {
 
                 Location l = b.getLocation();
 
