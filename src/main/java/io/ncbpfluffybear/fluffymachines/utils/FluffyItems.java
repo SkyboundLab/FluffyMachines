@@ -342,6 +342,16 @@ public class FluffyItems {
             "&eLinked Coordinates: &7None"
     );
 
+    public static final SlimefunItemStack UPGRADED_WARP_PAD_CONFIGURATOR = new SlimefunItemStack("UPGRADED_WARP_PAD_CONFIGURATOR",
+            Material.BLAZE_ROD,
+            "&6Upgraded Warp Pad Configurator",
+            "",
+            "&eSneak and Right Click &7on a Warp Pad to set the destination",
+            "&eRight Click &7on a Warp Pad to set the origin",
+            "",
+            "&eLinked Coordinates: &7None"
+    );
+
     public static final SlimefunItemStack ELECTRIC_DUST_FABRICATOR = new SlimefunItemStack("ELECTRIC_DUST_FABRICATOR",
             Material.BLAST_FURNACE,
             "&6Electric Dust Fabricator",
