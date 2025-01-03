@@ -89,7 +89,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
                     // Origin
                     } else if (pdc.has(world, PersistentDataType.STRING) && b.getWorld().getName().equals(pdc.get(world, PersistentDataType.STRING))) {
-                        String world = pdc.get(world, PersistentDataType.STRING);
+                        String worldName = pdc.get(world, PersistentDataType.STRING);
                         int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
                         int y = pdc.getOrDefault(yCoord, PersistentDataType.INTEGER, 0);
                         int z = pdc.getOrDefault(zCoord, PersistentDataType.INTEGER, 0);
@@ -103,7 +103,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                             return;
                         }
 
-                        registerOrigin(b, world, x, y, z);
+                        registerOrigin(b, worldName, x, y, z);
 
                         Utils.send(p, "&3This pad has been marked as an &aOrigin &3and your configurator's settings " +
                             "have been pasted onto this pad");
@@ -144,12 +144,12 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
                     // Origin
                     } else if (pdc.has(world, PersistentDataType.STRING)) {
-                        String world = pdc.get(world, PersistentDataType.STRING);
+                        String worldName = pdc.get(world, PersistentDataType.STRING);
                         int x = pdc.getOrDefault(xCoord, PersistentDataType.INTEGER, 0);
                         int y = pdc.getOrDefault(yCoord, PersistentDataType.INTEGER, 0);
                         int z = pdc.getOrDefault(zCoord, PersistentDataType.INTEGER, 0);
 
-                        registerOrigin(b, world, x, y, z);
+                        registerOrigin(b, worldName, x, y, z);
 
                         Utils.send(p, "&3This pad has been marked as an &aOrigin &3and your configurator's settings " +
                             "have been pasted onto this pad");
