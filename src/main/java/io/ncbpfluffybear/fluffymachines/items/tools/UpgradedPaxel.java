@@ -53,7 +53,7 @@ public class UpgradedPaxel extends SlimefunItem implements Listener, NotPlaceabl
         new HashSet<>(
             Arrays.asList(
                 Material.SPONGE,
-                Material.WET_SPONGE
+                Material.WET_SPONGE,
                 Material.SCULK_CATALYST,
                 Material.SCULK_SHRIEKER,
                 Material.SCULK_SENSOR,
