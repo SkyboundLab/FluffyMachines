@@ -68,34 +68,6 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                 List<String> lore = meta.getLore();
                 PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-                // if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
-
-                //     String hologramState = pdc.getOrDefault(hologram, PersistentDataType.STRING, "false");
-                //     if ("true".equals(hologramState)) {
-                //         pdc.set(hologram, PersistentDataType.STRING, "false");
-
-                //         removeHologram(b);
-
-                //         Utils.send(p, "&cHologram disabled for this warp pad.");
-                //     } else {
-                //         pdc.set(hologram, PersistentDataType.STRING, "true");
-
-                //         String type = BlockStorage.getLocationInfo(b.getLocation(), "type");
-
-                //         if ("destination".equals(type)) {
-                //             updateHologram(b, "&a&lDestination");
-                //         } else if ("origin".equals(type)) {
-                //             updateHologram(b, "&a&lOrigin");
-                //         }
-
-                //         Utils.send(p, "&aHologram enabled for this warp pad.");
-                //     }
-
-                //     e.setCancelled(true);
-
-                //     return;
-                // }
-
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
                     // Destination
@@ -153,30 +125,11 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
-                    String hologramState = pdc.getOrDefault(hologram, PersistentDataType.STRING, "true");
-                    if ("true".equals(hologramState)) {
-                        pdc.set(hologram, PersistentDataType.STRING, "false");
+                    pdc.set(hologram, PersistentDataType.STRING, "false");
 
-                        removeHologram(b);
+                    removeHologram(b);
 
-                        Utils.send(p, "&cHologram disabled for this warp pad.");
-                    } else {
-                        pdc.set(hologram, PersistentDataType.STRING, "true");
-
-                        String type = BlockStorage.getLocationInfo(b.getLocation(), "type");
-
-                        if ("destination".equals(type)) {
-                            updateHologram(b, "&a&lDestination");
-                        } else if ("origin".equals(type)) {
-                            updateHologram(b, "&a&lOrigin");
-                        }
-
-                        Utils.send(p, "&aHologram enabled for this warp pad.");
-                    }
-
-                    e.setCancelled(true);
-
-                    return;
+                    Utils.send(p, "&cHologram disabled for this warp pad.");
                 }
 
             } else {
