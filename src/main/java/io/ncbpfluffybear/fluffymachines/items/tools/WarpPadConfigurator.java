@@ -36,6 +36,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
     private final NamespacedKey yCoord = new NamespacedKey(FluffyMachines.getInstance(), "yCoordinate");
     private final NamespacedKey zCoord = new NamespacedKey(FluffyMachines.getInstance(), "zCoordinate");
     private final NamespacedKey world = new NamespacedKey(FluffyMachines.getInstance(), "world");
+    private final NamespacedKey hologram = new NamespacedKey(FluffyMachines.getInstance(), "hologram");
 
     private static final int LORE_COORDINATE_INDEX = 4;
     private final ItemSetting<Integer> MAX_DISTANCE = new ItemSetting<>(this, "max-distance", 100);
@@ -129,11 +130,11 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                     } else {
                         BlockStorage.addBlockInfo(b, "hologram", "true");
 
-                        String type = pdc.get(type, PersistentDataType.STRING);
+                        String typeValue = pdc.get(type, PersistentDataType.STRING);
 
-                        if (type.equals("destination")) {
+                        if (typeValue.equals("destination")) {
                             updateHologram(b, "&a&lDestination");
-                        } else if (type.equals("origin")) {
+                        } else if (typeValue.equals("origin")) {
                             updateHologram(b, "&a&lOrigin");
                         }
 
