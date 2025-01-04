@@ -81,7 +81,7 @@ public class UpgradedPaxel extends SlimefunItem implements Listener, NotPlaceabl
         Player p = e.getPlayer();
         SlimefunItem sfItem = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
 
-        if (sfItem != null && sfItem == FluffyItems.UpgradedPaxel.getItem()) {
+        if (sfItem != null && sfItem == FluffyItems.UPGRADED_PAXEL.getItem()) {
             boolean netherite = false;
             Block b = e.getBlock();
             ItemStack item = p.getInventory().getItemInMainHand();

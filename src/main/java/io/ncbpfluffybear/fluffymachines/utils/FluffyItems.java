@@ -425,7 +425,7 @@ public class FluffyItems {
     );
 
     public static final SlimefunItemStack UPGRADED_PAXEL = new SlimefunItemStack("UPGRADED_PAXEL",
-            Material.NETHERITE_PICKAXE,
+            Material.DIAMOND_PICKAXE,
             "&bUpgraded Paxel",
             "",
             "&7A pickaxe, axe, shovel, and hoe in one tool!"
