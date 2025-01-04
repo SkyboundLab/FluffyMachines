@@ -356,7 +356,7 @@ public class FluffyItems {
             Material.BLAZE_ROD,
             "&6Hologram Configurator",
             "",
-            "&eRight Click &7on a Warp Pad to toggle its hologram",
+            "&eRight Click &7on a Warp Pad to toggle its hologram"
     );
 
     public static final SlimefunItemStack ELECTRIC_DUST_FABRICATOR = new SlimefunItemStack("ELECTRIC_DUST_FABRICATOR",
