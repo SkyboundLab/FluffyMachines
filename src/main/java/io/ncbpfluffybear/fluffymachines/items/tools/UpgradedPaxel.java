@@ -40,7 +40,7 @@ public class UpgradedPaxel extends SlimefunItem implements Listener, NotPlaceabl
             Tag.WOODEN_BUTTONS.getValues(),
             Tag.BANNERS.getValues(),
             Tag.LEAVES.getValues(),
-            Tag.CAMPFIRES.getValues()
+            Tag.CAMPFIRES.getValues(),
             new HashSet<>(
                 Arrays.asList(
                     Material.CHEST,
