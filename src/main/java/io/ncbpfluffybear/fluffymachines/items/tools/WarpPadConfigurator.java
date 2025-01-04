@@ -36,6 +36,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
     private final NamespacedKey yCoord = new NamespacedKey(FluffyMachines.getInstance(), "yCoordinate");
     private final NamespacedKey zCoord = new NamespacedKey(FluffyMachines.getInstance(), "zCoordinate");
     private final NamespacedKey world = new NamespacedKey(FluffyMachines.getInstance(), "world");
+    private final NamespacedKey hologram = new NamespacedKey(FluffyMachines.getInstance(), "hologram");
 
     private static final int LORE_COORDINATE_INDEX = 4;
     private final ItemSetting<Integer> MAX_DISTANCE = new ItemSetting<>(this, "max-distance", 100);
@@ -69,18 +70,16 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                 PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
                 if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
-                    PersistentDataContainer blockPDC = b.getPersistentDataContainer();
-                    NamespacedKey hologramKey = new NamespacedKey(FluffyMachines.getInstance(), "hologram");
 
-                    String hologramState = blockPDC.getOrDefault(hologramKey, PersistentDataType.STRING, "false");
+                    String hologramState = pdc.getOrDefault(hologram, PersistentDataType.STRING, "false");
                     if ("true".equals(hologramState)) {
-                        blockPDC.set(hologramKey, PersistentDataType.STRING, "false");
+                        pdc.set(hologram, PersistentDataType.STRING, "false");
 
                         removeHologram(b);
 
                         Utils.send(p, "&cHologram disabled for this warp pad.");
                     } else {
-                        blockPDC.set(hologramKey, PersistentDataType.STRING, "true");
+                        pdc.set(hologram, PersistentDataType.STRING, "true");
 
                         String type = BlockStorage.getLocationInfo(b.getLocation(), "type");
 
