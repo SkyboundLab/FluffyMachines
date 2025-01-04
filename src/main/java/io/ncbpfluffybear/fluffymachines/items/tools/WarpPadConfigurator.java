@@ -114,6 +114,32 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                         Utils.send(p, "&cSneak and right click on a Warp Pad to set the destination, then right click" + " " + "another Warp Pad tp set the origin!");
                     }
 
+                } else if (e.getAction() == Action.LEFT_CLICK_BLOCK)  {
+
+                    if (!pdc.get(hologram, PersistentDataType.STRING)) {
+                        BlockStorage.addBlockInfo(b, "hologram", "true");
+                    }
+
+                    if (pdc.get(hologram, PersistentDataType.STRING).equals("true")) {
+                        BlockStorage.addBlockInfo(b, "hologram", "false");
+
+                        removeHologram(b);
+
+                        Utils.send(p, "&cDisabled hologram for this warp pad");
+                    } else {
+                        BlockStorage.addBlockInfo(b, "hologram", "true");
+
+                        String type = pdc.get(type, PersistentDataType.STRING);
+
+                        if (type.equals("destination")) {
+                            updateHologram(b, "&a&lDestination");
+                        } else if (type.equals("origin")) {
+                            updateHologram(b, "&a&lOrigin");
+                        }
+
+                        Utils.send(p, "&aEnabled hologram for this warp pad");
+                    }
+
                 }
 
             } else {
@@ -130,6 +156,8 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
         BlockStorage.addBlockInfo(b, "x", String.valueOf(x));
         BlockStorage.addBlockInfo(b, "y", String.valueOf(y));
         BlockStorage.addBlockInfo(b, "z", String.valueOf(z));
+
+        BlockStorage.addBlockInfo(b, "hologram", "true");
 
         updateHologram(b, "&a&lOrigin");
     }
