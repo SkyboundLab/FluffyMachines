@@ -40,12 +40,39 @@ public class Paxel extends SlimefunItem implements Listener, NotPlaceable {
             Tag.WOODEN_BUTTONS.getValues(),
             Tag.BANNERS.getValues(),
             Tag.LEAVES.getValues(),
-            new HashSet<>(Arrays.asList(Material.CHEST, Material.TRAPPED_CHEST, Material.CRAFTING_TABLE, Material.SMITHING_TABLE,
-                    Material.LOOM, Material.CARTOGRAPHY_TABLE, Material.FLETCHING_TABLE, Material.BARREL, Material.JUKEBOX,
-                    Material.CAMPFIRE, Material.BOOKSHELF, Material.JACK_O_LANTERN, Material.CARVED_PUMPKIN,
-                    Material.PUMPKIN, Material.MELON, Material.COMPOSTER, Material.BEEHIVE, Material.BEE_NEST,
-                    Material.NOTE_BLOCK, Material.LADDER, Material.COCOA_BEANS, Material.DAYLIGHT_DETECTOR, Material.MUSHROOM_STEM,
-                    Material.BROWN_MUSHROOM_BLOCK, Material.RED_MUSHROOM_BLOCK, Material.BAMBOO, Material.VINE, Material.LECTERN, Material.MANGROVE_ROOTS))
+            Tag.CAMPFIRES.getValues()
+            new HashSet<>(
+                Arrays.asList(
+                    Material.CHEST,
+                    Material.TRAPPED_CHEST,
+                    Material.CRAFTING_TABLE,
+                    Material.SMITHING_TABLE,
+                    Material.LOOM,
+                    Material.CARTOGRAPHY_TABLE,
+                    Material.FLETCHING_TABLE,
+                    Material.BARREL,
+                    Material.JUKEBOX,
+                    Material.BOOKSHELF,
+                    Material.JACK_O_LANTERN,
+                    Material.CARVED_PUMPKIN,
+                    Material.PUMPKIN,
+                    Material.MELON,
+                    Material.COMPOSTER,
+                    Material.BEEHIVE,
+                    Material.BEE_NEST,
+                    Material.NOTE_BLOCK,
+                    Material.LADDER,
+                    Material.COCOA_BEANS,
+                    Material.DAYLIGHT_DETECTOR,
+                    Material.MUSHROOM_STEM,
+                    Material.BROWN_MUSHROOM_BLOCK,
+                    Material.RED_MUSHROOM_BLOCK,
+                    Material.BAMBOO,
+                    Material.VINE,
+                    Material.LECTERN,
+                    Material.MANGROVE_ROOTS
+                )
+            )
     ).flatMap(Set::stream).collect(Collectors.toSet());
 
     public Paxel(ItemGroup category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
