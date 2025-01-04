@@ -424,6 +424,13 @@ public class FluffyItems {
             "&7A pickaxe, axe, and shovel in one tool!"
     );
 
+    public static final SlimefunItemStack UPGRADED_PAXEL = new SlimefunItemStack("UPGRADED_PAXEL",
+            Material.NETHERITE_PICKAXE,
+            "&bUpgraded Paxel",
+            "",
+            "&7A pickaxe, axe, shovel, and hoe in one tool!"
+    );
+
     public static final SlimefunItemStack ADVANCED_CHARGING_BENCH = new SlimefunItemStack(
             "ADVANCED_CHARGING_BENCH",
             Material.SMITHING_TABLE,

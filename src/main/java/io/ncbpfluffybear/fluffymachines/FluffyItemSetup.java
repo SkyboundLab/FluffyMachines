@@ -19,6 +19,7 @@ import io.ncbpfluffybear.fluffymachines.items.tools.CargoManipulator;
 import io.ncbpfluffybear.fluffymachines.items.tools.Dolly;
 import io.ncbpfluffybear.fluffymachines.items.tools.FluffyWrench;
 import io.ncbpfluffybear.fluffymachines.items.tools.Paxel;
+import io.ncbpfluffybear.fluffymachines.items.tools.UpgradedPaxel;
 import io.ncbpfluffybear.fluffymachines.items.tools.PortableCharger;
 import io.ncbpfluffybear.fluffymachines.items.tools.Scythe;
 import io.ncbpfluffybear.fluffymachines.items.tools.UpgradedExplosivePickaxe;
@@ -260,6 +261,13 @@ public final class FluffyItemSetup {
                 SlimefunItems.SYNTHETIC_EMERALD, new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.SYNTHETIC_EMERALD,
                 SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.DIAMOND_AXE), SlimefunItems.REINFORCED_ALLOY_INGOT,
                 SlimefunItems.SYNTHETIC_DIAMOND, new ItemStack(Material.DIAMOND_SHOVEL), SlimefunItems.SYNTHETIC_DIAMOND,
+        }).register(plugin);
+
+        new UpgradedPaxel(tools, FluffyItems.UPGRADED_PAXEL,
+                RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+                Material.NETHERITE_PICKAXE, new ItemStack(SlimefunItems.SYNTHETIC_EMERALD), Material.NETHERITE_PICKAXE,
+                SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT), SlimefunItems.REINFORCED_ALLOY_INGOT,
+                Material.NETHERITE_PICKAXE, new ItemStack(SlimefunItems.SYNTHETIC_DIAMOND), Material.NETHERITE_HOE,
         }).register(plugin);
 
         // Machines

@@ -69,33 +69,33 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                 List<String> lore = meta.getLore();
                 PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-                if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
+                // if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
 
-                    String hologramState = pdc.getOrDefault(hologram, PersistentDataType.STRING, "false");
-                    if ("true".equals(hologramState)) {
-                        pdc.set(hologram, PersistentDataType.STRING, "false");
+                //     String hologramState = pdc.getOrDefault(hologram, PersistentDataType.STRING, "false");
+                //     if ("true".equals(hologramState)) {
+                //         pdc.set(hologram, PersistentDataType.STRING, "false");
 
-                        removeHologram(b);
+                //         removeHologram(b);
 
-                        Utils.send(p, "&cHologram disabled for this warp pad.");
-                    } else {
-                        pdc.set(hologram, PersistentDataType.STRING, "true");
+                //         Utils.send(p, "&cHologram disabled for this warp pad.");
+                //     } else {
+                //         pdc.set(hologram, PersistentDataType.STRING, "true");
 
-                        String type = BlockStorage.getLocationInfo(b.getLocation(), "type");
+                //         String type = BlockStorage.getLocationInfo(b.getLocation(), "type");
 
-                        if ("destination".equals(type)) {
-                            updateHologram(b, "&a&lDestination");
-                        } else if ("origin".equals(type)) {
-                            updateHologram(b, "&a&lOrigin");
-                        }
+                //         if ("destination".equals(type)) {
+                //             updateHologram(b, "&a&lDestination");
+                //         } else if ("origin".equals(type)) {
+                //             updateHologram(b, "&a&lOrigin");
+                //         }
 
-                        Utils.send(p, "&aHologram enabled for this warp pad.");
-                    }
+                //         Utils.send(p, "&aHologram enabled for this warp pad.");
+                //     }
 
-                    e.setCancelled(true);
+                //     e.setCancelled(true);
 
-                    return;
-                }
+                //     return;
+                // }
 
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
