@@ -27,6 +27,7 @@ import io.ncbpfluffybear.fluffymachines.items.tools.UpgradedExplosiveShovel;
 import io.ncbpfluffybear.fluffymachines.items.tools.UpgradedLumberAxe;
 import io.ncbpfluffybear.fluffymachines.items.tools.WarpPadConfigurator;
 import io.ncbpfluffybear.fluffymachines.items.tools.UpgradedWarpPadConfigurator;
+import io.ncbpfluffybear.fluffymachines.items.tools.HologramConfigurator;
 import io.ncbpfluffybear.fluffymachines.items.tools.WateringCan;
 import io.ncbpfluffybear.fluffymachines.machines.AdvancedAutoDisenchanter;
 import io.ncbpfluffybear.fluffymachines.machines.AdvancedChargingBench;
@@ -421,6 +422,13 @@ public final class FluffyItemSetup {
                 null, new ItemStack(Material.NETHER_STAR), null,
                 null, SlimefunItems.REINFORCED_ALLOY_INGOT, null,
                 null, SlimefunItems.REINFORCED_ALLOY_INGOT, null
+        }).register(plugin);
+
+        new WarpPadConfigurator(misc, FluffyItems.HOLOGRAM_CONFIGURATOR,
+                RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+                null, SlimefunItems.HOLOGRAM_PROJECTOR, null,
+                null, SlimefunItems.MAGNESIUM_INGOT, null,
+                null, SlimefunItems.MAGNESIUM_INGOT, null
         }).register(plugin);
 
         new ElectricDustFabricator(machines, FluffyItems.ELECTRIC_DUST_FABRICATOR,

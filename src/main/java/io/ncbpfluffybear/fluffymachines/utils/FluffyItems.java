@@ -352,6 +352,13 @@ public class FluffyItems {
             "&eLinked Coordinates: &7None"
     );
 
+    public static final SlimefunItemStack HOLOGRAM_CONFIGURATOR = new SlimefunItemStack("HOLOGRAM_CONFIGURATOR",
+            Material.BLAZE_ROD,
+            "&6Hologram Configurator",
+            "",
+            "&eRight Click &7on a Warp Pad to toggle its hologram",
+    );
+
     public static final SlimefunItemStack ELECTRIC_DUST_FABRICATOR = new SlimefunItemStack("ELECTRIC_DUST_FABRICATOR",
             Material.BLAST_FURNACE,
             "&6Electric Dust Fabricator",
