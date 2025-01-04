@@ -36,7 +36,6 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
     private final NamespacedKey yCoord = new NamespacedKey(FluffyMachines.getInstance(), "yCoordinate");
     private final NamespacedKey zCoord = new NamespacedKey(FluffyMachines.getInstance(), "zCoordinate");
     private final NamespacedKey world = new NamespacedKey(FluffyMachines.getInstance(), "world");
-    private final NamespacedKey hologram = new NamespacedKey(FluffyMachines.getInstance(), "hologram");
 
     private static final int LORE_COORDINATE_INDEX = 4;
     private final ItemSetting<Integer> MAX_DISTANCE = new ItemSetting<>(this, "max-distance", 100);
@@ -68,6 +67,36 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                 ItemMeta meta = item.getItemMeta();
                 List<String> lore = meta.getLore();
                 PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+                if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
+                    PersistentDataContainer blockPDC = b.getPersistentDataContainer();
+                    NamespacedKey hologramKey = new NamespacedKey(FluffyMachines.getInstance(), "hologram");
+
+                    String hologramState = blockPDC.getOrDefault(hologramKey, PersistentDataType.STRING, "false");
+                    if ("true".equals(hologramState)) {
+                        blockPDC.set(hologramKey, PersistentDataType.STRING, "false");
+
+                        removeHologram(b);
+
+                        Utils.send(p, "&cHologram disabled for this warp pad.");
+                    } else {
+                        blockPDC.set(hologramKey, PersistentDataType.STRING, "true");
+
+                        String type = BlockStorage.getLocationInfo(b.getLocation(), "type");
+
+                        if ("destination".equals(type)) {
+                            updateHologram(b, "&a&lDestination");
+                        } else if ("origin".equals(type)) {
+                            updateHologram(b, "&a&lOrigin");
+                        }
+
+                        Utils.send(p, "&aHologram enabled for this warp pad.");
+                    }
+
+                    e.setCancelled(true);
+
+                    return;
+                }
 
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
@@ -115,32 +144,6 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
                         Utils.send(p, "&cSneak and right click on a Warp Pad to set the destination, then right click" + " " + "another Warp Pad tp set the origin!");
                     }
 
-                } else if (e.getAction() == Action.LEFT_CLICK_BLOCK)  {
-
-                    if (!pdc.get(hologram, PersistentDataType.STRING)) {
-                        BlockStorage.addBlockInfo(b, "hologram", "true");
-                    }
-
-                    if (pdc.get(hologram, PersistentDataType.STRING).equals("true")) {
-                        BlockStorage.addBlockInfo(b, "hologram", "false");
-
-                        removeHologram(b);
-
-                        Utils.send(p, "&cDisabled hologram for this warp pad");
-                    } else {
-                        BlockStorage.addBlockInfo(b, "hologram", "true");
-
-                        String typeValue = pdc.get(type, PersistentDataType.STRING);
-
-                        if (typeValue.equals("destination")) {
-                            updateHologram(b, "&a&lDestination");
-                        } else if (typeValue.equals("origin")) {
-                            updateHologram(b, "&a&lOrigin");
-                        }
-
-                        Utils.send(p, "&aEnabled hologram for this warp pad");
-                    }
-
                 }
 
             } else {
@@ -157,8 +160,6 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
         BlockStorage.addBlockInfo(b, "x", String.valueOf(x));
         BlockStorage.addBlockInfo(b, "y", String.valueOf(y));
         BlockStorage.addBlockInfo(b, "z", String.valueOf(z));
-
-        BlockStorage.addBlockInfo(b, "hologram", "true");
 
         updateHologram(b, "&a&lOrigin");
     }
