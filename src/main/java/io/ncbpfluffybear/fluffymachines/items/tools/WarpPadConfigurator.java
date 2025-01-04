@@ -153,7 +153,7 @@ public class WarpPadConfigurator extends SlimefunItem implements HologramOwner, 
 
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 
-                    String hologramState = pdc.getOrDefault(hologram, PersistentDataType.STRING, "false");
+                    String hologramState = pdc.getOrDefault(hologram, PersistentDataType.STRING, "true");
                     if ("true".equals(hologramState)) {
                         pdc.set(hologram, PersistentDataType.STRING, "false");
 
