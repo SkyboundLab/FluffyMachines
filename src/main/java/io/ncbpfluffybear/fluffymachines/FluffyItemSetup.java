@@ -265,9 +265,9 @@ public final class FluffyItemSetup {
 
         new UpgradedPaxel(tools, FluffyItems.UPGRADED_PAXEL,
                 RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.SYNTHETIC_EMERALD, new ItemStack(Material.DIAMOND_PICKAXE),
-                SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT,
-                new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.SYNTHETIC_DIAMOND, new ItemStack(Material.DIAMOND_HOE),
+                SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.DIAMOND_HOE), SlimefunItems.REINFORCED_ALLOY_INGOT,
+                SlimefunItems.SYNTHETIC_SAPPHIRE, FluffyItems.PAXEL, SlimefunItems.SYNTHETIC_EMERALD,
+                SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.SYNTHETIC_DIAMOND, SlimefunItems.REINFORCED_ALLOY_INGOT,
         }).register(plugin);
 
         // Machines
