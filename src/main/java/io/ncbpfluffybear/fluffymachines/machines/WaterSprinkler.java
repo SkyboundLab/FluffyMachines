@@ -126,6 +126,11 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
 
     private void grow(@Nonnull Block crop) {
 
+        if (Tag.SAPLINGS.isTagged(crop.getType())) {
+            crop.applyBoneMeal(BlockFace.UP);
+            return;
+        }
+
         final double random = ThreadLocalRandom.current().nextDouble();
         if (successChance.getValue() >= random) {
             if (crop.getType() == Material.SUGAR_CANE) {
@@ -138,8 +143,6 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
                         return;
                     }
                 }
-            } else if (Tag.SAPLINGS.isTagged(crop.getType())) {
-                crop.applyBoneMeal(BlockFace.UP);
             } else {
                 final Ageable ageable = (Ageable) crop.getBlockData();
                 if (ageable.getAge() < ageable.getMaximumAge()) {

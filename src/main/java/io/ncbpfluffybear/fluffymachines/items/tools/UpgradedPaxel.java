@@ -193,13 +193,21 @@ public class UpgradedPaxel extends SlimefunItem implements Listener, NotPlaceabl
             ItemStack item = p.getInventory().getItemInMainHand();
             SlimefunItem sfItem = SlimefunItem.getByItem(item);
 
-            if (sfItem instanceof UpgradedPaxel && b.getType() == Material.GRASS_BLOCK) {
+            if (sfItem instanceof UpgradedPaxel) {
                 boolean netherite = item.getType() == Material.NETHERITE_PICKAXE || item.getType() == Material.NETHERITE_AXE || item.getType() == Material.NETHERITE_SHOVEL || item.getType() == Material.NETHERITE_HOE;
 
-                if (netherite) {
-                    item.setType(Material.NETHERITE_HOE);
-                } else {
-                    item.setType(Material.DIAMOND_HOE);
+                if (b.getType() == Material.FARMLAND) {
+                    if (netherite) {
+                        item.setType(Material.NETHERITE_HOE);
+                    } else {
+                        item.setType(Material.DIAMOND_HOE);
+                    }
+                } else if (b.getType() == Material.GRASS_BLOCK) {
+                    if (netherite) {
+                        item.setType(Material.NETHERITE_SHOVEL);
+                    } else {
+                        item.setType(Material.DIAMOND_SHOVEL);
+                    }
                 }
             }
         }
