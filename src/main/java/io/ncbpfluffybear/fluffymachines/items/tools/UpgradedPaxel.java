@@ -22,6 +22,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class UpgradedPaxel extends SlimefunItem implements Listener, NotPlaceable {
@@ -92,7 +94,20 @@ public class UpgradedPaxel extends SlimefunItem implements Listener, NotPlaceabl
                 Material.HAY_BLOCK,
                 Material.SHROOMLIGHT,
                 Material.NETHER_WART_BLOCK,
-                Material.WARPED_WART_BLOCK
+                Material.WARPED_WART_BLOCK,
+                Material.WHEAT,
+                Material.CARROTS,
+                Material.POTATOES,
+                Material.BEETROOTS,
+                Material.MELON_STEM,
+                Material.PUMPKIN_STEM,
+                Material.SWEET_BERRY_BUSH,
+                Material.COCOA,
+                Material.NETHER_WART,
+                Material.KELP,
+                Material.SUGAR_CANE,
+                Material.BAMBOO_SAPLING,
+                Material.CACTUS
             )
         )
     ).flatMap(Set::stream).collect(Collectors.toSet());
@@ -168,5 +183,25 @@ public class UpgradedPaxel extends SlimefunItem implements Listener, NotPlaceabl
             }
         }
 
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    private void onRightClick(PlayerInteractEvent e) {
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock() != null) {
+            Block b = e.getClickedBlock();
+            Player p = e.getPlayer();
+            ItemStack item = p.getInventory().getItemInMainHand();
+            SlimefunItem sfItem = SlimefunItem.getByItem(item);
+
+            if (sfItem instanceof UpgradedPaxel && b.getType() == Material.GRASS_BLOCK) {
+                boolean netherite = item.getType() == Material.NETHERITE_PICKAXE || item.getType() == Material.NETHERITE_AXE || item.getType() == Material.NETHERITE_SHOVEL || item.getType() == Material.NETHERITE_HOE;
+
+                if (netherite) {
+                    item.setType(Material.NETHERITE_HOE);
+                } else {
+                    item.setType(Material.DIAMOND_HOE);
+                }
+            }
+        }
     }
 }
