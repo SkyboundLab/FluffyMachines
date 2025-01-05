@@ -10,6 +10,7 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import org.bukkit.Tag;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -137,6 +138,8 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
                         return;
                     }
                 }
+            } else if (Tag.SAPLINGS.isTagged(crop.getType())) {
+                crop.applyBoneMeal(BlockFace.UP);
             } else {
                 final Ageable ageable = (Ageable) crop.getBlockData();
                 if (ageable.getAge() < ageable.getMaximumAge()) {
@@ -144,8 +147,7 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
                     ageable.setAge(ageable.getAge() + 1);
                     crop.setBlockData(ageable);
 
-                    crop.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, crop.getLocation().add(0.5D, 0.5D, 0.5D),
-                        4, 0.1F, 0.1F, 0.1F);
+                    crop.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, crop.getLocation().add(0.5D, 0.5D, 0.5D), 4, 0.1F, 0.1F, 0.1F);
                 }
             }
         }
