@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
 
 /**
  * The {@link WaterSprinkler} speeds up the growth of nearby crops
@@ -133,11 +134,18 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
 
     private void grow(@Nonnull Block crop) {
 
+        Bukkit.getLogger().log(Level.INFO, "Growing " + crop.getType().name());
+
+        Material saplingMaterial = crop.getType();
+
         if (Tag.SAPLINGS.isTagged(crop.getType())) {
-            Material saplingMaterial = crop.getType();
             Location blockLocation = crop.getLocation();
 
+            Bukkit.getLogger().log(Level.INFO, "Tagged Sapling");
+
             if (BlockStorage.hasBlockInfo(crop)) {
+                Bukkit.getLogger().log(Level.INFO, "Has Block Info");
+
                 Bukkit.getPluginManager().callEvent(
                     new StructureGrowEvent(
                         blockLocation,
@@ -148,6 +156,8 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
                     )
                 );
             } else {
+                Bukkit.getLogger().log(Level.INFO, "No Block Info");
+
                 if (Constants.SERVER_VERSION < 1163) {
                     crop.setType(Material.AIR);
 
