@@ -123,7 +123,11 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
 
                     BlockData blockData = block.getBlockData();
 
+                    Bukkit.getLogger().log(Level.INFO, "Found Block Data: " + block.getType().name());
+
                     if (blockData instanceof Ageable) {
+                        Bukkit.getLogger().log(Level.INFO, "Found Ageable");
+
                         grow(block);
                         removeCharge(b.getLocation(), getEnergyConsumption());
                     }
