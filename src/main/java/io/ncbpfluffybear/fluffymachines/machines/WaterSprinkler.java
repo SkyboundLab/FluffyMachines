@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.machines.accelerators.AbstractGrowthAccelerator;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.machines.accelerators.CropGrowthAccelerator;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.ncbpfluffybear.fluffymachines.utils.Constants;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
@@ -11,15 +12,21 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Tag;
+import org.bukkit.TreeType;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+
+import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -127,7 +134,31 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
     private void grow(@Nonnull Block crop) {
 
         if (Tag.SAPLINGS.isTagged(crop.getType())) {
-            crop.applyBoneMeal(BlockFace.UP);
+            Material saplingMaterial = crop.getType();
+            Location blockLocation = crop.getLocation();
+
+            if (BlockStorage.hasBlockInfo(crop)) {
+                Bukkit.getPluginManager().callEvent(
+                    new StructureGrowEvent(
+                        blockLocation,
+                        getTreeFromSapling(saplingMaterial),
+                        false,
+                        null,
+                        Collections.singletonList(crop.getState())
+                    )
+                );
+            } else {
+                if (Constants.SERVER_VERSION < 1163) {
+                    crop.setType(Material.AIR);
+
+                    if (!blockLocation.getWorld().generateTree(blockLocation, getTreeFromSapling(saplingMaterial))) {
+                        crop.setType(saplingMaterial);
+                    }
+                } else {
+                    crop.applyBoneMeal(BlockFace.UP);
+                }
+            }
+
             return;
         }
 
@@ -154,6 +185,22 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
                 }
             }
         }
+    }
+
+    private static TreeType getTreeFromSapling(Material m) {
+        TreeType treeType = TreeType.TREE;
+        String parseSapling = m.toString()
+            .replace("_SAPLING", "");
+
+        if (!parseSapling.equals("OAK")) {
+            if (parseSapling.equals("JUNGLE")) {
+                parseSapling = "SMALL_JUNGLE";
+            }
+
+            return TreeType.valueOf(parseSapling);
+        }
+
+        return treeType;
     }
 
 }
