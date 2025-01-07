@@ -14,6 +14,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import org.bukkit.Tag;
 import org.bukkit.TreeType;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -28,7 +29,6 @@ import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Level;
 
 /**
  * The {@link WaterSprinkler} speeds up the growth of nearby crops
@@ -39,7 +39,11 @@ import java.util.logging.Level;
  */
 public class WaterSprinkler extends AbstractGrowthAccelerator {
 
-    public final ItemSetting<Double> successChance = new ItemSetting<>(this, "success-chance", 0.5);
+    public final ItemSetting<Double> cropSuccessChance = new ItemSetting<>(this, "crop-success-chance", 0.5);
+    public final ItemSetting<Double> sugarCaneSuccessChance = new ItemSetting<>(this, "sugar-cane-success-chance", 0.5);
+    public final ItemSetting<Double> treeSuccessChance = new ItemSetting<>(this, "tree-success-chance", 0.5);
+    public final ItemSetting<Double> exoticGardenSuccessChance = new ItemSetting<>(this, "exotic-garden-success-chance", 0.5);
+
     public static final int ENERGY_CONSUMPTION = 16;
     public static final int CAPACITY = 128;
     private static final int RADIUS = 2;
@@ -65,7 +69,13 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
                 blockMenuPreset.addItem(PROGRESS_SLOT, noWaterItem);
             });
 
-        addItemSetting(successChance, particles);
+        addItemSetting(
+            cropSuccessChance,
+            sugarCaneSuccessChance,
+            treeSuccessChance,
+            exoticGardenSuccessChance,
+            particles
+        );
     }
 
     public int getEnergyConsumption() {
@@ -123,12 +133,7 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
 
                     BlockData blockData = block.getBlockData();
 
-                    if (blockData instanceof Ageable) {
-                        grow(block);
-                        removeCharge(b.getLocation(), getEnergyConsumption());
-                    }
-
-                    if (Tag.SAPLINGS.isTagged(block.getType())) {
+                    if (blockData instanceof Ageable || Tag.SAPLINGS.isTagged(block.getType())) {
                         grow(block);
                         removeCharge(b.getLocation(), getEnergyConsumption());
                     }
@@ -138,27 +143,36 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
     }
 
     private void grow(@Nonnull Block crop) {
+        final double random = ThreadLocalRandom.current().nextDouble();
 
         if (Tag.SAPLINGS.isTagged(crop.getType())) {
-            Material saplingMaterial = crop.getType();
-            Location blockLocation = crop.getLocation();
+            final Material saplingMaterial = crop.getType();
+            final Location blockLocation = crop.getLocation();
 
             if (BlockStorage.hasBlockInfo(crop)) {
-                Bukkit.getPluginManager().callEvent(
-                    new StructureGrowEvent(
-                        blockLocation,
-                        getTreeFromSapling(saplingMaterial),
-                        false,
-                        null,
-                        Collections.singletonList(crop.getState())
-                    )
-                );
+                if (random < exoticGardenSuccessChance.getValue()) {
+                    Bukkit.getPluginManager().callEvent(
+                        new StructureGrowEvent(
+                            blockLocation,
+                            getTreeFromSapling(saplingMaterial),
+                            false,
+                            null,
+                            Collections.singletonList(crop.getState())
+                        )
+                    );
+
+                    blockLocation.getWorld().playEffect(blockLocation, Effect.VILLAGER_PLANT_GROW, 0);
+                }
             } else {
                 if (Constants.SERVER_VERSION < 1163) {
-                    crop.setType(Material.AIR);
+                    if (random < treeSuccessChance.getValue()) {
+                        crop.setType(Material.AIR);
 
-                    if (!blockLocation.getWorld().generateTree(blockLocation, getTreeFromSapling(saplingMaterial))) {
-                        crop.setType(saplingMaterial);
+                        if (!blockLocation.getWorld().generateTree(blockLocation, getTreeFromSapling(saplingMaterial))) {
+                            crop.setType(saplingMaterial);
+                        }
+
+                        blockLocation.getWorld().playEffect(blockLocation, Effect.VILLAGER_PLANT_GROW, 0);
                     }
                 } else {
                     crop.applyBoneMeal(BlockFace.UP);
@@ -168,8 +182,7 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
             return;
         }
 
-        final double random = ThreadLocalRandom.current().nextDouble();
-        if (successChance.getValue() >= random) {
+        if (cropSuccessChance.getValue() >= random) {
             if (crop.getType() == Material.SUGAR_CANE) {
                 for (int i = 1; i < 3; i++) {
                     final Block above = crop.getRelative(BlockFace.UP, i);
