@@ -123,11 +123,12 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
 
                     BlockData blockData = block.getBlockData();
 
-                    Bukkit.getLogger().log(Level.INFO, "Found Block Data: " + block.getType().name());
-
                     if (blockData instanceof Ageable) {
-                        Bukkit.getLogger().log(Level.INFO, "Found Ageable");
+                        grow(block);
+                        removeCharge(b.getLocation(), getEnergyConsumption());
+                    }
 
+                    if (Tag.SAPLINGS.isTagged(block.getType())) {
                         grow(block);
                         removeCharge(b.getLocation(), getEnergyConsumption());
                     }
@@ -138,18 +139,11 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
 
     private void grow(@Nonnull Block crop) {
 
-        Bukkit.getLogger().log(Level.INFO, "Growing " + crop.getType().name());
-
-        Material saplingMaterial = crop.getType();
-
         if (Tag.SAPLINGS.isTagged(crop.getType())) {
+            Material saplingMaterial = crop.getType();
             Location blockLocation = crop.getLocation();
 
-            Bukkit.getLogger().log(Level.INFO, "Tagged Sapling");
-
             if (BlockStorage.hasBlockInfo(crop)) {
-                Bukkit.getLogger().log(Level.INFO, "Has Block Info");
-
                 Bukkit.getPluginManager().callEvent(
                     new StructureGrowEvent(
                         blockLocation,
@@ -160,8 +154,6 @@ public class WaterSprinkler extends AbstractGrowthAccelerator {
                     )
                 );
             } else {
-                Bukkit.getLogger().log(Level.INFO, "No Block Info");
-
                 if (Constants.SERVER_VERSION < 1163) {
                     crop.setType(Material.AIR);
 
