@@ -16,7 +16,7 @@ Custom item settings can be changed in `plugins/Slimefun/Items.yml`
 
 **Auto Table Saw**: Automatically crafts Table Saw recipes
 
-**Water Sprinkler**: Electric sprinkler that grows crops in a 2 block radius
+**Water Sprinkler**: Electric sprinkler that grows crops in a 2 block radius (Supports plants from Exotic Garden) **<-- Updated in this fork**
 
 **Backpack Loader**: Moves items from inventory to backpack
 
@@ -51,7 +51,9 @@ Custom item settings can be changed in `plugins/Slimefun/Items.yml`
 
 **Wrench**: Quickly breaks Slimefun cargo and energy components.
 
-**Paxel**: A pickaxe, axe, and shovel all in one. (Updated with 1.21 blocks)
+**Paxel**: A pickaxe, axe, and shovel all in one. (Updated with 1.20 blocks) **<-- Updated in this fork**
+
+**Upgraded Paxel**: A pickaxe, axe, shovel and hoe all in one. **<-- New in this fork**
 
 ## Misc
 **Ender Chest Extraction Node**: Moves items from ender chest to a chest
@@ -66,7 +68,7 @@ Custom item settings can be changed in `plugins/Slimefun/Items.yml`
 
 **Warp Pad & Warp Pad Configurator**: Short distance teleportation pads
 
-**Upgraded Warp Configurator**: Allows Warp Pads to be used for any distance and cross-dimensions
+**Upgraded Warp Configurator**: Allows Warp Pads to be used for any distance and cross-dimensions **<-- New in this fork**
 
 **Alternate Elevator Plate**: Functions the same as Slimefun's Elevator Plates, but it uses a Chest GUI. Can be used for cosmetic effect, of if your server does not support elevators when a player is muted, this will work.
 
