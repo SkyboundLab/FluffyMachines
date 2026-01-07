@@ -512,7 +512,7 @@ public class Barrel extends NonHopperableBlock implements DoubleHologramOwner {
             return false;
         }
 
-        if (!item1.hasItemMeta() || !item2.hasItemMeta()) {
+        if (!item1.hasItemMeta() && !item2.hasItemMeta()) {
             return true; // Match by type
         }
 
